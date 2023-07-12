@@ -1,0 +1,49 @@
+<form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="userFirstName">First Name:</label>
+    <input type="text" id="userFirstName" formControlName="userFirstName">
+  </div>
+  <div>
+    <label for="userLastName">Last Name:</label>
+    <input type="text" id="userLastName" formControlName="userLastName">
+  </div>
+  <div>
+    <label for="userName">Username:</label>
+    <input type="text" id="userName" formControlName="userName">
+  </div>
+  <div>
+    <label for="userPassword">Password:</label>
+    <input type="password" id="userPassword" formControlName="userPassword">
+  </div>
+  <div>
+    <label for="roleName">Role:</label>
+    <select id="roleName" formControlName="roleName">
+      <option *ngFor="let role of roles" [value]="role.roleName">{{ role.roleName }}</option>
+    </select>
+  </div>
+  <button type="submit" [disabled]="userForm.invalid">Create User</button>
+</form>
+
+
+  <div class="card">
+    <p-table [value]="users" [tableStyle]="{ 'min-width': '50rem' }">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Username</th>
+                <th>First name</th>
+                <th>Last name</th>
+                <th>Role</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-user>
+            <tr>
+                <td>{{ user.userName }}</td>
+                <td>{{ user.userFirstName }}</td>
+                <td>{{ user.userLastName }}</td>
+                <td >{{ user.roleName }}</td>
+                <td><button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger" (click)="onDeleteUser(user)">DELETE</button> </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
