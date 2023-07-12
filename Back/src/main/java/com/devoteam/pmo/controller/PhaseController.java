@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.devoteam.pmo.entity.Phase;
+import com.devoteam.pmo.entity.Project;
 import com.devoteam.pmo.service.PhaseService;
 
 
@@ -26,9 +27,9 @@ public class PhaseController {
         return phaseService.showPhase();
     }
 
-    @PostMapping("/addNewPhase")
-    public Phase addNewPhase(@RequestBody Phase phase) {
-        return phaseService.addNewPhase(phase);
+    @PostMapping("/addNewPhase/{project}")
+    public Phase addNewPhase(@RequestBody Phase phase, @PathVariable Project project) {
+        return phaseService.addNewPhase(phase,project);
     }
 
     @DeleteMapping("/phase/{phaseId}/delete")

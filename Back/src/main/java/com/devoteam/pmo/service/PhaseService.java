@@ -23,8 +23,8 @@ public List<Phase> showPhase() {
         return phaseRepository.findAll();
     }
 
-    public Phase addNewPhase(Phase phase) {
-      Project project = phase.getProject();
+    public Phase addNewPhase(Phase phase,Project project ) {
+      project = phase.getProject();
       // Save the project if it's not already saved
       if (project.getProjectId() == null) {
           projectService.addNewProject(project);
