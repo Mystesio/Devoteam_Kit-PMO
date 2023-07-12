@@ -3,6 +3,9 @@ package com.devoteam.pmo.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Date;
 import java.util.List;
 
@@ -20,6 +23,8 @@ public class Phase {
     private Date endDate;
 
     @ManyToOne
+    @JoinColumn(name = "project_id")
+    @JsonIgnore // Add this annotation to ignore the circular reference
     private Project project;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "phase")

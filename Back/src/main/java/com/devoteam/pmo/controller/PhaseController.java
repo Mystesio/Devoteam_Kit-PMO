@@ -21,27 +21,24 @@ public class PhaseController {
  @Autowired
     private PhaseService phaseService;
 
-
-
-
-    @RequestMapping("/phases") 
-    public List<Phase> showPhases(){
-     return phaseService.showPhase();
+    @RequestMapping("/phases")
+    public List<Phase> showPhases() {
+        return phaseService.showPhase();
     }
 
-    @PostMapping({"/addNewPhase"})
+    @PostMapping("/addNewPhase")
     public Phase addNewPhase(@RequestBody Phase phase) {
-    return phaseService.addNewPhase(phase);
+        return phaseService.addNewPhase(phase);
     }
 
-    @DeleteMapping({"/phase/{phaseId}/delete"})
-    public void deletePhase(@RequestBody Phase phase){
-     phaseService.deletePhase(phase);
+    @DeleteMapping("/phase/{phaseId}/delete")
+    public void deletePhase(@RequestBody Phase phase) {
+        phaseService.deletePhase(phase);
     }
 
-    @PutMapping({"/phase/{phaseId}/update"})
-     public void updatePhase(@RequestBody Phase phase, @PathVariable long phaseId){
-     phaseService.update(phase, phaseId);
+    @PutMapping("/phase/{phaseId}/update")
+    public void updatePhase(@RequestBody Phase phase, @PathVariable long phaseId) {
+        phaseService.update(phase, phaseId);
     }
 
     

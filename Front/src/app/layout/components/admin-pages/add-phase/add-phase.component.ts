@@ -107,7 +107,7 @@ export class AddPhaseComponent {
       }
     );
   }
-
+  
   onUpdatePhase(updateForm: NgForm) {
     this.phaseService.updatePhase(this.phase).subscribe(
       (updatedPhase) => {
