@@ -34,8 +34,8 @@ export class AddPhaseComponent {
     endDate: new Date(),
     steps: [],
     project:{
-      projectId: '',
-      projectName: '',
+      projectId: this.project.projectId,
+      projectName: this ,
       projectDescription: '',
       sponsor: '',
       domain: '',
@@ -57,7 +57,7 @@ export class AddPhaseComponent {
 
   
   loadPhases() {
-      this.phaseService.getAllPhases().subscribe(
+      this.phaseService.getAllPhases(this.project.projectId).subscribe(
         (phases: Phase[]) => {
           this.phases = phases;
         },

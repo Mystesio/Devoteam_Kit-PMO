@@ -17,8 +17,8 @@ export class PhaseService {
     return this.httpclient.post<Phase>(url, phase);
   }
 
-  public getAllPhases(): Observable<Phase[]>{
-    return this.httpclient.get<Phase[]>(`${this.apiUrl}/phases`);
+  public getAllPhases(projectId: string): Observable<Phase[]>{
+    return this.httpclient.get<Phase[]>(`${this.apiUrl}/phases/${projectId}`);
 
   }
 
