@@ -80,20 +80,20 @@ export class AddPhaseComponent {
 
 
   addPhase(phaseForm: NgForm) {
-  
-    this.phaseService.addPhase(this.phase).subscribe(
+    this.phaseService.addPhase(this.phase, this.project.projectId).subscribe(
       (response: Phase) => {
         console.log(response);
         this.successMessage = 'Phase added successfully!';
         phaseForm.reset();
         window.location.reload();
-
+        this.phase.project.projectId= this.project.projectId;
       },
       (error: HttpErrorResponse) => {
-        console.log(error)
+        console.log(error);
       }
     );
   }
+
 
   onDeletePhase(phase: Phase) {
     this.phaseService.deletePhase(phase).subscribe(

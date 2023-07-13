@@ -13,14 +13,14 @@
 </p-toolbar>
 
 <form #PhaseForm="ngForm">
-    <p-dialog [(visible)]="productDialog" [style]="{width: '450px'}" header="Project details" [modal]="true"
+    <p-dialog [(visible)]="productDialog" [style]="{width: '450px'}" header="Phase Form" [modal]="true"
         class="p-fluid">
         <ng-template pTemplate="content">
             <!-- <img [src]="'assets/demo/images/product/' + product.image" [alt]="product.image" width="150" class="mt-0 mx-auto mb-5 block shadow-2" *ngIf="product.image"> -->
             <div class="field">
-                <label for="name">Project name :</label>
-                <input type="text" pInputText id="name" [(ngModel)]="phase.phaseName" name="projectName"
-                    name="projectName" />
+                <label for="name">Phase name :</label>
+                <input type="text" pInputText id="name" [(ngModel)]="phase.phaseName" name="phaseName"
+                    name="phaseName" />
                 <small class="ng-dirty ng-invalid">Name is required.</small>
             </div>
             <div class="field col-12 md:col-4">

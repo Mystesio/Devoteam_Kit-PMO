@@ -22,15 +22,23 @@ private ProjectService projectService;
 public List<Phase> showPhase() {
         return phaseRepository.findAll();
     }
-
-    public Phase addNewPhase(Phase phase,Project project ) {
-      project = phase.getProject();
-      // Save the project if it's not already saved
-      if (project.getProjectId() == null) {
-          projectService.addNewProject(project);
-      }
-      return phaseRepository.save(phase);
-  }
+    public Phase addNewPhase(Phase phase, Project project) {
+        Project phaseProject = phase.getProject();
+        
+        if (phaseProject != null) {
+            project = phaseProject;
+            
+            // Save the project if it's not already saved
+            if (project.getProjectId() == null) {
+                projectService.addNewProject(project);
+            }
+        } else {
+            // Handle the case where phase.getProject() returns null
+            // You can either throw an exception or handle it in an appropriate way based on your requirements
+        }
+        
+        return phaseRepository.save(phase);
+    }
     public void deletePhase(Phase phase) {
         phaseRepository.delete(phase);
     }

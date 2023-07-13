@@ -12,12 +12,10 @@ export class PhaseService {
 
   constructor(private httpclient: HttpClient) { }
 
-
-  public addPhase(phase: Phase){
-    const url = `${this.apiUrl}/addNewPhase`;
+  public addPhase(phase: Phase, projectId: string) {
+    const url = `${this.apiUrl}/addNewPhase/${projectId}`;
     return this.httpclient.post<Phase>(url, phase);
   }
-
 
   public getAllPhases(): Observable<Phase[]>{
     return this.httpclient.get<Phase[]>(`${this.apiUrl}/phases`);

@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { FormGroup, NgForm } from '@angular/forms';
 import { Message, MessageService } from 'primeng/api';
 import {  Phase } from 'src/app/_model/phase.model';
+import { Project } from 'src/app/_model/project.model';
 import { PhaseService } from 'src/app/_services/phase.service';
 
 @Component({
@@ -38,6 +39,8 @@ export class AddPhaseComponent {
   };
   successMessage: string = '';
   msgs: Message[] = [];
+  project!: Project;
+
   constructor(private phaseService: PhaseService) { }
 
 
@@ -50,17 +53,18 @@ export class AddPhaseComponent {
   }
 
 
+  
   addPhase(phaseForm: NgForm) {
-    this.phaseService.addPhase(this.phase).subscribe(
+    this.phaseService.addPhase(this.phase, this.project.projectId).subscribe(
       (response: Phase) => {
         console.log(response);
         this.successMessage = 'Phase added successfully!';
         phaseForm.reset();
-
-
+        window.location.reload();
+        this.phase.project.projectId= this.project.projectId;
       },
       (error: HttpErrorResponse) => {
-        console.log(error)
+        console.log(error);
       }
     );
   }

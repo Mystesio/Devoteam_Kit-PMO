@@ -24,11 +24,11 @@
 </p-toolbar>
 
 <form #PhaseForm="ngForm">
-    <p-dialog [(visible)]="productDialog" [style]="{width: '450px'}" header="Phases details" [modal]="true"
+    <p-dialog [(visible)]="productDialog" [style]="{width: '450px'}" header="Ajout de phase" [modal]="true"
         class="p-fluid">
         <ng-template pTemplate="content">
             <div class="field">
-                <label for="phaseName">Phase name :</label>
+                <label for="phaseName">Nom de la phase :</label>
                 <input type="text" pInputText id="phaseName" [(ngModel)]="phase.phaseName" name="phaseName" />
                 <small class="ng-dirty ng-invalid">Nom requis</small>
             </div>
