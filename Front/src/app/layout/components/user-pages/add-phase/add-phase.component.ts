@@ -24,17 +24,7 @@ export class AddPhaseComponent {
     endDate: new Date(),
     phaseId: 0,
     phaseName: '',
-    project: {
-      projectId: '',
-      projectName: '',
-      projectDescription: '',
-      sponsor: '',
-      domain: '',
-      nature: '',
-      startDate: new Date(),
-      endDate: new Date(),
-      phases: []
-    },
+    project: '',
     steps: []
   };
   successMessage: string = '';
@@ -61,7 +51,7 @@ export class AddPhaseComponent {
         this.successMessage = 'Phase added successfully!';
         phaseForm.reset();
         window.location.reload();
-        this.phase.project.projectId= this.project.projectId;
+        this.phase.project= this.project.projectId;
       },
       (error: HttpErrorResponse) => {
         console.log(error);

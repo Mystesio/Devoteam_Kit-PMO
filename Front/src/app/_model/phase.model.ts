@@ -1,4 +1,3 @@
-import { Project } from "./project.model";
 import { Step } from "./step.model";
 
 export interface Phase {
