@@ -6,7 +6,7 @@ export interface Phase {
     phaseName: string;
     startDate: Date;
     endDate: Date;
-    project: Project;
+    project: String;
     steps: Step[];
    
  

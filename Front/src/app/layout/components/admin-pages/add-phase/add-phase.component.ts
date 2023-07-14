@@ -33,6 +33,7 @@ export class AddPhaseComponent {
     startDate: new Date(),
     endDate: new Date(),
     steps: [],
+<<<<<<< Updated upstream
     project:{
       projectId: '',
       projectName: '',
@@ -45,9 +46,12 @@ export class AddPhaseComponent {
       phases: [],
      
     },
+=======
+    project:'',
+>>>>>>> Stashed changes
   };
   successMessage: string = '';
-  projects: Project[] = [];
+
 
 
   
@@ -59,7 +63,7 @@ export class AddPhaseComponent {
   loadPhases() {
       this.phaseService.getAllPhases().subscribe(
         (phases: Phase[]) => {
-          this.phases = phases;
+          this.project.phases = phases;
         },
         (error) => {
           console.error('Error loading phases:', error);
@@ -85,9 +89,14 @@ export class AddPhaseComponent {
       (response: Phase) => {
         console.log(response);
         this.successMessage = 'Phase added successfully!';
+        this.phase.project = this.project.projectId;
         phaseForm.reset();
         window.location.reload();
+<<<<<<< Updated upstream
 
+=======
+      
+>>>>>>> Stashed changes
       },
       (error: HttpErrorResponse) => {
         console.log(error)

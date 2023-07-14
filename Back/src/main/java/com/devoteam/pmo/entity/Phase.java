@@ -16,7 +16,7 @@ public class Phase {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long phaseId;
 
-    private String Phasename;
+    private String PhaseName;
 
     private Date startDate;
 

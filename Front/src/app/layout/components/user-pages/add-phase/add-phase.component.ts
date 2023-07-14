@@ -23,18 +23,8 @@ export class AddPhaseComponent {
     endDate: new Date(),
     phaseId: 0,
     phaseName: '',
-    project: {
-      projectId: '',
-      projectName: '',
-      projectDescription: '',
-      sponsor: '',
-      domain: '',
-      nature: '',
-      startDate: new Date(),
-      endDate: new Date(),
-      phases: []
-    },
-    steps: []
+    project:'',
+    steps: [],
   };
   successMessage: string = '';
   msgs: Message[] = [];
@@ -56,8 +46,13 @@ export class AddPhaseComponent {
         console.log(response);
         this.successMessage = 'Phase added successfully!';
         phaseForm.reset();
+<<<<<<< Updated upstream
 
 
+=======
+        window.location.reload();
+        this.phase.project = this.project.projectId;
+>>>>>>> Stashed changes
       },
       (error: HttpErrorResponse) => {
         console.log(error)

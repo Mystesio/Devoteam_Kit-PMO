@@ -18,7 +18,10 @@ export class PhaseService {
     return this.httpclient.post<Phase>(url, phase);
   }
 
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
   public getAllPhases(): Observable<Phase[]>{
     return this.httpclient.get<Phase[]>(`${this.apiUrl}/phases`);
 
