@@ -18,7 +18,11 @@ import java.util.Set;
 @AllArgsConstructor
 @Entity
 public class User implements Serializable{
-    @Id
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	@Id
     private String userName;
     private String userFirstName;
     private String userLastName;

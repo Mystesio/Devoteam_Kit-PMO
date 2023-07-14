@@ -21,46 +21,48 @@ import com.devoteam.pmo.service.JwtService;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
-    
-    @Autowired
-    private JwtAthenticationEntryPoint jwtAthenticationEntryPoint;
 
-    @Autowired
-    private JwtRequestFilter jwtRequestFilter;
+	@Autowired
+	private JwtAthenticationEntryPoint jwtAthenticationEntryPoint;
 
-    @Autowired
-    private JwtService jwtService;
+	@Autowired
+	private JwtRequestFilter jwtRequestFilter;
 
-    @Bean
-    @Override
+	@Autowired
+	private JwtService jwtService;
 
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
+	@SuppressWarnings("deprecation")
+	@Bean
+	@Override
 
-    }
+	public AuthenticationManager authenticationManagerBean() throws Exception {
+		return super.authenticationManagerBean();
 
-    @Override
-protected void configure(HttpSecurity httpSecurity) throws Exception {
-    httpSecurity.cors().and().csrf().disable()
-        .authorizeRequests()
-        .antMatchers("/authenticate", "/createUserWithRole", "/refreshToken", "/createNewRole", "/addNewProject", "/all", "/allUsers").permitAll()
-        .antMatchers(HttpHeaders.ALLOW).permitAll()
-        .antMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
-        .anyRequest().authenticated()
-        .and().exceptionHandling().authenticationEntryPoint(jwtAthenticationEntryPoint)
-        .and()
-        .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-    httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+	}
+
+	@Override
+	protected void configure(HttpSecurity httpSecurity) throws Exception {
+		httpSecurity.cors().and().csrf().disable()
+		.authorizeRequests()
+		.antMatchers("/authenticate", "/createUserWithRole", "/refreshToken", "/createNewRole", "/addNewProject", "/all", "/allUsers").permitAll()
+		.antMatchers(HttpHeaders.ALLOW).permitAll()
+		.antMatchers("/swagger-ui.html#/", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
+		.anyRequest().authenticated()
+		.and().exceptionHandling().authenticationEntryPoint(jwtAthenticationEntryPoint)
+		.and()
+		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+		httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+	}
+
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
+
+
+
+	public void configureGlobal(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
+		authenticationManagerBuilder.userDetailsService(jwtService).passwordEncoder(passwordEncoder());
+	}
 }
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-
-
-    
-    public void configureGlobal(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
-        authenticationManagerBuilder.userDetailsService(jwtService).passwordEncoder(passwordEncoder());
-    }
-}

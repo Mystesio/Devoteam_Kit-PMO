@@ -3,6 +3,8 @@ package com.devoteam.pmo.controller;
 import com.devoteam.pmo.entity.Project;
 import com.devoteam.pmo.service.ProjectService;
 
+import io.swagger.annotations.ApiOperation;
+
 import java.util.List;
 
 
@@ -22,27 +24,29 @@ public class ProjectController {
 
     @Autowired
     private ProjectService projectService;
-
+     
+    @ApiOperation(value = "Show  all projects")
     @RequestMapping("/projects") 
     public List<Project> showProjects(){
      return projectService.showProjects();
     }
-
+    @ApiOperation(value = "Show a project")
     @RequestMapping("/project/{projectId}") 
     public Project showProject(@PathVariable long projectId) throws Exception{
         return projectService.getProjectById(projectId);
     }
     
-    
+    @ApiOperation(value = "add new project")
     @PostMapping({"/addNewProject"})
     public Project addNewProject(@RequestBody Project project) {
         return projectService.addNewProject(project);
     }
+    @ApiOperation(value = "delete a project")
     @DeleteMapping({"/project/{id}/delete"})
     public void deleteProject(@RequestBody Project project){
      projectService.deleteProject(project);
     }
-
+    @ApiOperation(value = "update a project")
     @PutMapping({"/project/{projectId}/update"})
     public void updateProject(@RequestBody Project project, @PathVariable long projectId) {
         projectService.updateProject(project, projectId);
