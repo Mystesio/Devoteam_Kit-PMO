@@ -16,7 +16,8 @@ public class Phase {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long phaseId;
 
-    private String Phasename;
+    @Column(name = "phase_name")
+    private String phaseName;
 
     private Date startDate;
 
@@ -24,9 +25,9 @@ public class Phase {
 
     @ManyToOne
     @JoinColumn(name = "project_id")
-    @JsonIgnore // Add this annotation to ignore the circular reference
+    @JsonIgnore 
     private Project project;
-
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "phase")
     private List<Step> steps;
 

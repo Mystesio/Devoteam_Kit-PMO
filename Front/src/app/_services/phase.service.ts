@@ -11,16 +11,15 @@ export class PhaseService {
   apiUrl='http://localhost:8086';
 
   constructor(private httpclient: HttpClient) { }
-
-  public addPhase(phase: Phase, projectId: string) {
+  public getAllPhases(): Observable<Phase[]> {
+    return this.httpclient.get<Phase[]>(`${this.apiUrl}/phases`);
+  }
+  
+  public addPhase(phase: Phase, projectId: string): Observable<Phase> {
     const url = `${this.apiUrl}/addNewPhase/${projectId}`;
     return this.httpclient.post<Phase>(url, phase);
   }
-
-  public getAllPhases(): Observable<Phase[]>{
-    return this.httpclient.get<Phase[]>(`${this.apiUrl}/phases`);
-
-  }
+  
 
   deletePhase(phase: Phase): Observable<any> {
     const url = `${this.apiUrl}/phase/${phase.phaseId}/delete`;

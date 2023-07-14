@@ -12,9 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.devoteam.pmo.entity.Phase;
-import com.devoteam.pmo.entity.Project;
 import com.devoteam.pmo.service.PhaseService;
-import com.devoteam.pmo.service.ProjectService;
+
 
 
 @RestController
@@ -23,8 +22,7 @@ public class PhaseController {
  @Autowired
     private PhaseService phaseService;
 
-    @Autowired
-    private ProjectService projectService;
+   
 
     @RequestMapping("/phases")
     public List<Phase> showPhases() {
@@ -32,20 +30,17 @@ public class PhaseController {
     }
 
     @PostMapping("/addNewPhase/{projectId}")
-public Phase addNewPhase(@RequestBody Phase phase, @PathVariable("projectId") Long projectId) throws Exception {
-    Project project = projectService.getProjectById(projectId); // Assuming there is a projectService to retrieve the project
-    return phaseService.addNewPhase(phase, project);
+    public Phase addNewPhase(@RequestBody Phase phase, @PathVariable("projectId") Long projectId) throws Exception {
+    return phaseService.addNewPhase(phase);
 }
 
     @DeleteMapping("/phase/{phaseId}/delete")
     public void deletePhase(@RequestBody Phase phase) {
         phaseService.deletePhase(phase);
     }
-
     @PutMapping("/phase/{phaseId}/update")
-    public void updatePhase(@RequestBody Phase phase, @PathVariable long phaseId) {
+    public void updatePhase(@RequestBody Phase phase, @PathVariable("phaseId") long phaseId) {
         phaseService.update(phase, phaseId);
     }
-
     
 }
