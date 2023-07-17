@@ -11,11 +11,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -26,12 +26,12 @@ public class ProjectController {
     private ProjectService projectService;
      
     @ApiOperation(value = "Show  all projects")
-    @RequestMapping("/projects") 
+    @GetMapping("/projects") 
     public List<Project> showProjects(){
      return projectService.showProjects();
     }
     @ApiOperation(value = "Show a project")
-    @RequestMapping("/project/{projectId}") 
+    @GetMapping("/project/{projectId}") 
     public Project showProject(@PathVariable long projectId) throws Exception{
         return projectService.getProjectById(projectId);
     }

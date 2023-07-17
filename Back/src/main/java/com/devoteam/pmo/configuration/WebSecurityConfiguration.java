@@ -17,6 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import com.devoteam.pmo.service.JwtService;
 
+@SuppressWarnings("deprecation")
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -31,7 +32,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private JwtService jwtService;
 
-	@SuppressWarnings("deprecation")
 	@Bean
 	@Override
 
@@ -46,7 +46,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 		.authorizeRequests()
 		.antMatchers("/authenticate", "/createUserWithRole", "/refreshToken", "/createNewRole", "/addNewProject", "/all", "/allUsers").permitAll()
 		.antMatchers(HttpHeaders.ALLOW).permitAll()
-		.antMatchers("/swagger-ui.html#/", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
+		.antMatchers("/swagger-ui.html#/**","/swagger-ui.html/**", "/swagger-ui/**", "/v3/api-docs/**","/v2/api-docs/**").permitAll()
 		.anyRequest().authenticated()
 		.and().exceptionHandling().authenticationEntryPoint(jwtAthenticationEntryPoint)
 		.and()
