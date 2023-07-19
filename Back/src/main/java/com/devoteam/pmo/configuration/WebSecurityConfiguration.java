@@ -44,7 +44,12 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
 		httpSecurity.cors().and().csrf().disable()
 		.authorizeRequests()
-		.antMatchers("/authenticate", "/createUserWithRole", "/refreshToken", "/createNewRole", "/addNewProject", "/all", "/allUsers").permitAll()
+		.antMatchers("/authenticate", "/createUserWithRole", "/refreshToken", "/createNewRole", 
+	    "/projects","/project/{projectId}","/addNewProject","/project/{id}/delete","/project/{projectId}/update",
+		"/{projectId}/phases","/phase/{phaseId}","/{projectId}/addNewPhase","/phase/{phaseId}/delete","/phase/{phaseId}/update",
+		"/{phaseId}/steps","/step/{stepId}","/{phaseId}/addNewStep","/step/{stepId}/delete","/step/{stepId}/update",
+		"/{stepId}/tasks","/task/{taskId}","/{stepId}/addNewTask","/task/{taskId}/delete","/task/{taskId}/update",
+		"/all", "/allUsers").permitAll()
 		.antMatchers(HttpHeaders.ALLOW).permitAll()
 		.antMatchers("/swagger-ui.html#/**","/swagger-ui.html/**", "/swagger-ui/**", "/v3/api-docs/**","/v2/api-docs/**").permitAll()
 		.anyRequest().authenticated()

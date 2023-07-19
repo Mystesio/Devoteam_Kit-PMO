@@ -1,6 +1,8 @@
 package com.devoteam.pmo.entity;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 
@@ -11,7 +13,8 @@ import java.util.List;
 
 @Data
 @Entity
-
+@Getter
+@Setter
 public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,6 +31,7 @@ public class Project {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "project")
     @JsonIgnore // Add this annotation to ignore the circular reference
     private List<Phase> phases;
+
 
 }
 

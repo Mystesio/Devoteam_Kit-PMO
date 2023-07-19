@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -21,14 +22,21 @@ public class PhaseController {
  @Autowired
     private PhaseService phaseService;
 
-    @RequestMapping("/phases")
-    public List<Phase> showPhases() {
-        return phaseService.showPhase();
+    @GetMapping("/{projectId}/phases")
+    public List<Phase> showPhases(@PathVariable long projectId) throws Exception {
+        return phaseService.showPhases(projectId);
     }
+    
+    @GetMapping("/phase/{phaseId}")
+    public Phase showPhase(@PathVariable long phaseId) throws Exception {
+        return phaseService.showPhase(phaseId);
+    }
+    
+    
 
-    @PostMapping("/addNewPhase")
-    public Phase addNewPhase(@RequestBody Phase phase) {
-        return phaseService.addNewPhase(phase);
+    @PostMapping("/{projectId}/addNewPhase")
+    public Phase addNewPhase(@RequestBody Phase phase, @PathVariable  long projectId) throws Exception {
+        return phaseService.addNewPhase( projectId, phase);
     }
 
     @DeleteMapping("/phase/{phaseId}/delete")
