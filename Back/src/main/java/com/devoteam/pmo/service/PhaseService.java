@@ -40,7 +40,11 @@ public Phase showPhase (long phaseId) throws Exception {
     }
 }
 
-public Phase addNewPhase(Long projectId, Phase newPhase) {
+
+
+public Phase addNewPhase(long projectId, Phase newPhase) {
+	
+
     Project project = projectRepository.findById(projectId).orElse(null);
     if (project != null) {
         newPhase.setProject(project);
