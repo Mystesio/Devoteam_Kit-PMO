@@ -26,8 +26,7 @@ public class ProjectService {
     }
 
     public void deleteProject( long projectId) {
-    	Project project = projectRepository.findById(projectId).orElse(null);
-        projectRepository.delete(project);
+    	projectRepository.deleteById(projectId);
     }
 
     public void updateProject(Project project, long id) {

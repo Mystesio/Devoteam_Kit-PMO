@@ -62,13 +62,13 @@ public class ProjectServiceTest {
     @Test
     public void testDeleteProject() {
         // Arrange
-        Project project = new Project();
+        long projectId = 1L;
 
         // Act
-        projectService.deleteProject(project);
+        projectService.deleteProject(projectId);
 
         // Assert
-        verify(projectRepository, times(1)).delete(project);
+        verify(projectRepository, times(1)).deleteById(projectId);
     }
 
     @Test

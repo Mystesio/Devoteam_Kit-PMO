@@ -34,5 +34,54 @@ public class Step {
     @JsonIgnore // Add this annotation to ignore the circular reference
     private List<Task> tasks;
 
+	public Long getStepId() {
+		return stepId;
+	}
+
+	public void setStepId(Long stepId) {
+		this.stepId = stepId;
+	}
+
+	public String getStepname() {
+		return Stepname;
+	}
+
+	public void setStepname(String stepname) {
+		Stepname = stepname;
+	}
+
+	public Date getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+
+	public Phase getPhase() {
+		return phase;
+	}
+
+	public void setPhase(Phase phase) {
+		this.phase = phase;
+	}
+
+	public List<Task> getTasks() {
+		return tasks;
+	}
+
+	public void setTasks(List<Task> tasks) {
+		this.tasks = tasks;
+	}
+
+    
     // Constructors, getters, setters, and other methods
 }
