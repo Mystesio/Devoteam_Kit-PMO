@@ -23,6 +23,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 
+@SuppressWarnings("unchecked")
+
 
 
 @Service
@@ -68,7 +70,8 @@ public class JwtService implements UserDetailsService {
         return jwtResponse;
     }
 
-    @Override
+  
+	@Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userDao.findById(username).get();
         if (user != null) {
@@ -83,7 +86,8 @@ public class JwtService implements UserDetailsService {
         }
     }
 
-    private Set getAuthorities(User user) {
+	@SuppressWarnings("rawtypes")
+	private Set getAuthorities(User user) {
         Set authorities = new HashSet();
         user.getRole().forEach(role -> {
             authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getRoleName()));

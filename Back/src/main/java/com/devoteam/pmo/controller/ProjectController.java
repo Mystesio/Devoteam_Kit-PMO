@@ -42,7 +42,7 @@ public class ProjectController {
         return projectService.addNewProject(project);
     }
     @ApiOperation(value = "delete a project")
-    @DeleteMapping({"/project/{id}/delete"})
+    @DeleteMapping({"/project/{projectId}/delete"})
     public void deleteProject(@PathVariable long projectId){
      projectService.deleteProject(projectId);
     }

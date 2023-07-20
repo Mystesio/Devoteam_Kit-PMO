@@ -1,6 +1,6 @@
 package com.devoteam.pmo.service;
 
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.devoteam.pmo.entity.Phase;
-import com.devoteam.pmo.entity.Project;
+
 import com.devoteam.pmo.entity.Step;
 import com.devoteam.pmo.repository.PhaseRepository;
 import com.devoteam.pmo.repository.StepRepository;
@@ -47,8 +47,8 @@ public class StepService {
         }
     }
    
-    public void deleteStep (Step step){
-    stepRepository.delete( step);
+    public void deleteStep (long stepId){
+    stepRepository.deleteById( stepId);
     }
       public void updateStep(Step step, long id) {
     stepRepository.save(step);

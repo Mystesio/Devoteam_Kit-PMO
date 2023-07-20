@@ -39,8 +39,8 @@ public class StepController {
     }
 
     @DeleteMapping("/step/{stepId}/delete")
-    public void deleteStep(@RequestBody Step step) {
-        stepService.deleteStep(step);
+    public void deleteStep(@PathVariable long stepId) {
+        stepService.deleteStep(stepId);
     }
 
     @PutMapping("/step/{stepId}/update")

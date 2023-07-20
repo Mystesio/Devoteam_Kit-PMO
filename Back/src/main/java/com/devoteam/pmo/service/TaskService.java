@@ -1,13 +1,13 @@
 package com.devoteam.pmo.service;
 
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.devoteam.pmo.entity.Phase;
+
 import com.devoteam.pmo.entity.Step;
 import com.devoteam.pmo.entity.Task;
 import com.devoteam.pmo.repository.StepRepository;
@@ -46,8 +46,8 @@ public class TaskService {
           }
       }
 
-    public void deleteTask (Task task){
-       taskRepository.delete(task);
+    public void deleteTask (long taskId){
+       taskRepository.deleteById(taskId);
     }
     public void update(Task task, long id) {
        taskRepository.save(task);
