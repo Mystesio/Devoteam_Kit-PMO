@@ -39,6 +39,15 @@ public class User implements Serializable{
 
     private String refreshToken;
 
+    public User() {}
+    
+    public User(String userName, String userPassword, Set<Role> role) {
+        // Constructor with parameters for convenience
+        this.userName = userName;
+        this.userPassword = userPassword;
+        this.role = role;
+    }
+
 	public String getUserName() {
 		return userName;
 	}

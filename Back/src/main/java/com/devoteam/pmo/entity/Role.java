@@ -24,6 +24,14 @@ public class Role {
 
     private String roleDescription;
 
+	public Role(String string, String string2) {
+	
+	}
+
+	public Role() {
+		
+	}
+
 	public String getRoleDescription() {
 		return roleDescription;
 	}

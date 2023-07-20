@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -21,6 +22,8 @@ public class UserService {
     private RoleRepository roleDao;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    
+    private List<User> userList = new ArrayList<>();
 
     //    public User registerNewUser(User user) {
 //        Role role = roleDao.findById("User").get();
@@ -93,11 +96,26 @@ public class UserService {
 
     }
 
-    public void deleteUser (User user){ 
-    user.getRole().clear();
-    userDao.delete(user);
+
+
+    public User deleteUser(String userName) {
+        User userToDelete = getUserByUserName(userName);
+        if (userToDelete != null) {
+            userList.remove(userToDelete);
+            return userToDelete; // Return the deleted user object
+        } else {
+            return null; // User with userName not found
+        }
     }
 
+    public User getUserByUserName(String userName) {
+        for (User user : userList) {
+            if (user.getUserName().equals(userName)) {
+                return user;
+            }
+        }
+        return null; // User with userName not found
+    }
     public String getEncodedPassword(String password) {
         return passwordEncoder.encode(password);
     }
