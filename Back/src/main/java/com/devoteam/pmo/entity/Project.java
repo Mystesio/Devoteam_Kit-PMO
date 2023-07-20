@@ -31,6 +31,60 @@ public class Project {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "project")
     @JsonIgnore // Add this annotation to ignore the circular reference
     private List<Phase> phases;
+	public Long getProjectId() {
+		return projectId;
+	}
+	public void setProjectId(Long projectId) {
+		this.projectId = projectId;
+	}
+	public String getProjectName() {
+		return projectName;
+	}
+	public void setProjectName(String projectName) {
+		this.projectName = projectName;
+	}
+	public String getProjectDescription() {
+		return projectDescription;
+	}
+	public void setProjectDescription(String projectDescription) {
+		this.projectDescription = projectDescription;
+	}
+	public String getSponsor() {
+		return sponsor;
+	}
+	public void setSponsor(String sponsor) {
+		this.sponsor = sponsor;
+	}
+	public String getDomain() {
+		return domain;
+	}
+	public void setDomain(String domain) {
+		this.domain = domain;
+	}
+	public String getNature() {
+		return nature;
+	}
+	public void setNature(String nature) {
+		this.nature = nature;
+	}
+	public Date getStartDate() {
+		return startDate;
+	}
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+	public Date getEndDate() {
+		return endDate;
+	}
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+	public List<Phase> getPhases() {
+		return phases;
+	}
+	public void setPhases(List<Phase> phases) {
+		this.phases = phases;
+	}
 
 
 }

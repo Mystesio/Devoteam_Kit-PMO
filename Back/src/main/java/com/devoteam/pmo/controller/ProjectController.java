@@ -43,8 +43,8 @@ public class ProjectController {
     }
     @ApiOperation(value = "delete a project")
     @DeleteMapping({"/project/{id}/delete"})
-    public void deleteProject(@RequestBody Project project){
-     projectService.deleteProject(project);
+    public void deleteProject(@PathVariable long projectId){
+     projectService.deleteProject(projectId);
     }
     @ApiOperation(value = "update a project")
     @PutMapping({"/project/{projectId}/update"})

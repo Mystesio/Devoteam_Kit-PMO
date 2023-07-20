@@ -55,7 +55,8 @@ public Phase addNewPhase(long projectId, Phase newPhase) {
 }
 
 
-    public void deletePhase(Phase phase) {
+    public void deletePhase(long phaseId) {
+    	Phase phase = phaseRepository.findById(phaseId).orElse(null);
         phaseRepository.delete(phase);
     }
 

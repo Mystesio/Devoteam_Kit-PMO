@@ -25,7 +25,8 @@ public class ProjectService {
         return projectRepository.save(project);
     }
 
-    public void deleteProject(Project project) {
+    public void deleteProject( long projectId) {
+    	Project project = projectRepository.findById(projectId).orElse(null);
         projectRepository.delete(project);
     }
 

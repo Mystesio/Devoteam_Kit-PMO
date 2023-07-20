@@ -38,8 +38,8 @@ public class PhaseController {
     }
 
     @DeleteMapping("/phase/{phaseId}/delete")
-    public void deletePhase(@RequestBody Phase phase) {
-        phaseService.deletePhase(phase);
+    public void deletePhase(@PathVariable long phaseId) {
+        phaseService.deletePhase(phaseId);
     }
 
     @PutMapping("/phase/{phaseId}/update")

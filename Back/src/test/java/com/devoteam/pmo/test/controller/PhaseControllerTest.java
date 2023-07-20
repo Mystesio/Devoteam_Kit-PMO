@@ -1,38 +1,57 @@
 package com.devoteam.pmo.test.controller;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.devoteam.pmo.controller.PhaseController;
 import com.devoteam.pmo.entity.Phase;
+import com.devoteam.pmo.repository.PhaseRepository;
 import com.devoteam.pmo.service.PhaseService;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 
 public class PhaseControllerTest {
 
     @Mock
     private PhaseService phaseService;
+    
+    
+    @Mock
+    private PhaseRepository phaseRepository;
 
     @InjectMocks
     private PhaseController phaseController;
 
     private MockMvc mockMvc;
-
+    
+    private ObjectMapper objectMapper;
+       
     @SuppressWarnings("deprecation")
 	@BeforeEach
     public void setUp() {
         MockitoAnnotations.initMocks(this);
         mockMvc = MockMvcBuilders.standaloneSetup(phaseController).build();
+        objectMapper = new ObjectMapper();
+   
     }
 
     @Test
@@ -81,4 +100,50 @@ public class PhaseControllerTest {
                 		+ "}\r\n")) 
                 .andExpect(status().isOk());
     }
-}
+    
+    @Test
+    public void testDeletePhase() throws Exception {
+        // Arrange
+        long phaseId = 1L;
+        
+        // Act & Assert
+        mockMvc.perform(delete("/phase/" + phaseId + "/delete"))
+                .andExpect(status().isOk());
+                
+        // Verify that the deletePhase method of the PhaseService is called once with the correct phaseId
+        verify(phaseService, times(1)).deletePhase(phaseId);
+    }
+    
+    @Test
+    public void testUpdatePhase() throws Exception {
+        long phaseId = 1L;
+        Phase updatedPhase = new Phase();
+        updatedPhase.setPhaseId(phaseId);
+        updatedPhase.setPhaseName("phase Update");
+        updatedPhase.setStartDate(new Date());
+        updatedPhase.setEndDate(new Date());
+
+        // Set up the mock phaseService
+        Mockito.doNothing().when(phaseService).update(any(Phase.class), eq(phaseId));
+
+        // Act & Assert
+        mockMvc.perform(put("/phase/" + phaseId + "/update")
+                .contentType("application/json")
+                .content(objectMapper.writeValueAsString(updatedPhase)))
+                .andExpect(status().isOk());
+
+        // Verify that the update method of the PhaseService is called once with the correct phase and phaseId
+        ArgumentCaptor<Phase> phaseCaptor = ArgumentCaptor.forClass(Phase.class);
+        verify(phaseService, times(1)).update(phaseCaptor.capture(), eq(phaseId));
+
+        // Compare the properties of the captured Phase with the expected properties
+        Phase capturedPhase = phaseCaptor.getValue();
+        assertEquals(updatedPhase.getPhaseName(), capturedPhase.getPhaseName());
+        assertEquals(updatedPhase.getStartDate(), capturedPhase.getStartDate());
+        assertEquals(updatedPhase.getEndDate(), capturedPhase.getEndDate());
+     }
+
+  }
+    
+
+
