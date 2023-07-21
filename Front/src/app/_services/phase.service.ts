@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Phase } from '../_model/phase.model';
 import { Observable } from 'rxjs';
+import { Project } from '../_model/project.model';
 
 @Injectable({
   providedIn: 'root'
@@ -13,18 +14,13 @@ export class PhaseService {
   constructor(private httpclient: HttpClient) { }
 
 
-  public addPhase(phase: Phase){
-    const url = `${this.apiUrl}/addNewPhase`;
+  public addPhase(phase: Phase , project: Project){
+    const url = `${this.apiUrl}/${project.projectId}/addNewPhase`;
     return this.httpclient.post<Phase>(url, phase);
   }
 
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
-  public getAllPhases(): Observable<Phase[]>{
-    return this.httpclient.get<Phase[]>(`${this.apiUrl}/phases`);
-
+  public getAllPhases(project: Project): Observable<Phase[]>{
+    return this.httpclient.get<Phase[]>(`${this.apiUrl}/${project.projectId}/phases`);
   }
 
   deletePhase(phase: Phase): Observable<any> {

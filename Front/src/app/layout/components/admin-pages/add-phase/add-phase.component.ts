@@ -26,29 +26,21 @@ export class AddPhaseComponent {
   value5: any;
   msgs: Message[] = [];
   phases: Phase[] = [];
-  project!: Project;
+  project: Project = {
+    projectId: '',
+    projectName: '',
+    projectDescription: '',
+    sponsor: '',
+    domain: '',
+    nature: '',
+    startDate: new Date(),
+    endDate: new Date(),
+  };
   phase: Phase = {
     phaseId: 0,
     phaseName: '',
     startDate: new Date(),
     endDate: new Date(),
-    steps: [],
-<<<<<<< Updated upstream
-    project:{
-      projectId: '',
-      projectName: '',
-      projectDescription: '',
-      sponsor: '',
-      domain: '',
-      nature: '',
-      startDate: new Date(),
-      endDate: new Date(),
-      phases: [],
-     
-    },
-=======
-    project:'',
->>>>>>> Stashed changes
   };
   successMessage: string = '';
 
@@ -61,9 +53,10 @@ export class AddPhaseComponent {
 
   
   loadPhases() {
-      this.phaseService.getAllPhases().subscribe(
+      this.ngOnInit();
+      this.phaseService.getAllPhases(this.project).subscribe(
         (phases: Phase[]) => {
-          this.project.phases = phases;
+          this.phases = phases;
         },
         (error) => {
           console.error('Error loading phases:', error);
@@ -84,19 +77,15 @@ export class AddPhaseComponent {
 
 
   addPhase(phaseForm: NgForm) {
-  
-    this.phaseService.addPhase(this.phase).subscribe(
+    this.ngOnInit();
+    this.phaseService.addPhase(this.phase, this.project).subscribe(
       (response: Phase) => {
         console.log(response);
         this.successMessage = 'Phase added successfully!';
-        this.phase.project = this.project.projectId;
         phaseForm.reset();
         window.location.reload();
-<<<<<<< Updated upstream
 
-=======
       
->>>>>>> Stashed changes
       },
       (error: HttpErrorResponse) => {
         console.log(error)
@@ -105,10 +94,10 @@ export class AddPhaseComponent {
   }
 
   onDeletePhase(phase: Phase) {
+    this.ngOnInit();
     this.phaseService.deletePhase(phase).subscribe(
       () => {
         console.log('Project deleted successfully.');
-        this.ngOnInit();
         window.location.reload();
       },
       (error: HttpErrorResponse) => {
@@ -118,6 +107,7 @@ export class AddPhaseComponent {
   }
   
   onUpdatePhase(updateForm: NgForm) {
+    this.ngOnInit();
     this.phaseService.updatePhase(this.phase).subscribe(
       (updatedPhase) => {
         console.log('Phase updated successfully:', updatedPhase);

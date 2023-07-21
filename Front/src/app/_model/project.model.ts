@@ -1,4 +1,4 @@
-import { Phase } from "./phase.model";
+
 
 export interface Project {
   projectId: string;
@@ -9,6 +9,6 @@ export interface Project {
   nature: string;
   startDate: Date;
   endDate: Date;
-  phases: Phase[]; 
+
 
 }

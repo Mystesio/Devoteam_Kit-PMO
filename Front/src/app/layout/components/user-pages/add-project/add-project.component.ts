@@ -27,7 +27,7 @@ export class AddProjectComponent {
     startDate: new Date(),
     endDate: new Date(),
     projectId: "",
-    phases: []
+  
   };
   successMessage: string = '';
   msgs: Message[] = [];

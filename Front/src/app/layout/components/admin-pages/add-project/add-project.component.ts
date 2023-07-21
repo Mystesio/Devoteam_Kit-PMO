@@ -28,7 +28,7 @@ export class AddProjectComponent implements OnInit, AfterViewInit {
     nature: "",
     startDate: new Date(),
     endDate: new Date(),
-    phases: []
+
   };
   successMessage: string = '';
   msgs: Message[] = [];
