@@ -1,7 +1,8 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Phase } from '../_model/phase.model';
 import { Observable } from 'rxjs';
+import { Project } from '../_model/project.model';
 
 @Injectable({
   providedIn: 'root'
@@ -11,13 +12,22 @@ export class PhaseService {
   apiUrl='http://localhost:8086';
 
   constructor(private httpclient: HttpClient) { }
-  public getAllPhases(): Observable<Phase[]> {
-    return this.httpclient.get<Phase[]>(`${this.apiUrl}/phases`);
-  }
-  
-  public addPhase(phase: Phase, projectId: string): Observable<Phase> {
-    const url = `${this.apiUrl}/addNewPhase/${projectId}`;
+
+
+  public addPhase(phase: Phase, project : Project){
+    const url = `${this.apiUrl}/${project.projectId}/addNewPhase`;
     return this.httpclient.post<Phase>(url, phase);
+  }
+
+  public getAllPhases(project: Project): Observable<Phase[]>{
+    return this.httpclient.get<Phase[]>(`${this.apiUrl}/${project.projectId}/phases`);
+
+  }
+
+  getPhase(phase: Phase): Observable<any> {
+    const url = `${this.apiUrl}/phase/${phase.phaseId}`;
+    const options: { headers?: HttpHeaders; params?: HttpParams }={ };
+    return this.httpclient.get(url, options);
   }
   
 

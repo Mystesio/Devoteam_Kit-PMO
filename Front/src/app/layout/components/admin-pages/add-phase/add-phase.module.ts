@@ -26,14 +26,13 @@ import { MessageModule } from 'primeng/message';
 @NgModule({
   declarations: [
     AddPhaseComponent,
+    
    
   ],
   imports: [
     CommonModule,
-    AddPhaseRoutingModule,
-    TableModule,
+    TableModule ,
     FileUploadModule,
-    FormsModule,
     ButtonModule,
     RippleModule,
     ToastModule,
@@ -41,14 +40,16 @@ import { MessageModule } from 'primeng/message';
     RatingModule,
     InputTextModule,
     InputTextareaModule,
-    DropdownModule,
     RadioButtonModule,
+    DropdownModule,
     InputNumberModule,
     DialogModule,
     CalendarModule,
     MessagesModule,
     MessageModule,
-		
+    FormsModule,
+    AddPhaseRoutingModule
+   
   ]
 })
 export class AddPhaseModule { }

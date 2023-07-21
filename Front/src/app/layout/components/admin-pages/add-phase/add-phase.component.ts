@@ -1,14 +1,11 @@
 import { HttpErrorResponse, HttpHeaderResponse, HttpHeaders } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, Inject} from '@angular/core';
 import { FormGroup, NgForm } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute} from '@angular/router';
 import { Message, MessageService } from 'primeng/api';
 import {  Phase } from 'src/app/_model/phase.model';
 import { Project } from 'src/app/_model/project.model';
 import { PhaseService } from 'src/app/_services/phase.service';
-
-
-
 
 
 
@@ -19,6 +16,7 @@ import { PhaseService } from 'src/app/_services/phase.service';
   providers: [MessageService]
 })
 export class AddPhaseComponent {
+
   productDialog = false;
   phaseDialog = false;
   phaseForm: FormGroup | undefined;
@@ -26,27 +24,36 @@ export class AddPhaseComponent {
   value5: any;
   msgs: Message[] = [];
   phases: Phase[] = [];
-  project!: Project;
+  project : Project= {
+    projectId: '',
+    projectName: '',
+    projectDescription: '',
+    sponsor: '',
+    domain: '',
+    nature: '',
+    startDate: new Date(),
+    endDate:new Date(),
+  };
   phase: Phase = {
     phaseId: 0,
     phaseName: '',
     startDate: new Date(),
     endDate: new Date(),
-    steps: [],
-    project:'',
+    
   };
   successMessage: string = '';
   projects: Project[] = [];
 
 
   
-  constructor(private phaseService: PhaseService, private route: ActivatedRoute) { 
+  constructor(private phaseService: PhaseService, @Inject(ActivatedRoute) private route: ActivatedRoute) { 
     this.loadPhases();
   }
 
   
   loadPhases() {
-      this.phaseService.getAllPhases().subscribe(
+    this.ngOnInit();
+      this.phaseService.getAllPhases(this.project).subscribe(
         (phases: Phase[]) => {
           this.phases = phases;
         },
@@ -60,7 +67,6 @@ export class AddPhaseComponent {
       this.route.queryParams.subscribe(params => {
         this.project = JSON.parse(params['project']);
       });
-     
     }
 
   openNew() {
@@ -69,13 +75,14 @@ export class AddPhaseComponent {
 
 
   addPhase(phaseForm: NgForm) {
-    this.phaseService.addPhase(this.phase, this.project.projectId).subscribe(
+    
+    this.phaseService.addPhase(this.phase, this.project).subscribe(
       (response: Phase) => {
         console.log(response);
         this.successMessage = 'Phase added successfully!';
         phaseForm.reset();
         window.location.reload();
-        this.phase.project = this.project.projectId;
+      
       },
       (error: HttpErrorResponse) => {
         console.log(error);
@@ -85,10 +92,10 @@ export class AddPhaseComponent {
 
 
   onDeletePhase(phase: Phase) {
+    this.ngOnInit();
     this.phaseService.deletePhase(phase).subscribe(
       () => {
-        console.log('Project deleted successfully.');
-        this.ngOnInit();
+        console.log('Phase deleted successfully.');
         window.location.reload();
       },
       (error: HttpErrorResponse) => {
@@ -98,6 +105,7 @@ export class AddPhaseComponent {
   }
   
   onUpdatePhase(updateForm: NgForm) {
+    this.ngOnInit();
     this.phaseService.updatePhase(this.phase).subscribe(
       (updatedPhase) => {
         console.log('Phase updated successfully:', updatedPhase);

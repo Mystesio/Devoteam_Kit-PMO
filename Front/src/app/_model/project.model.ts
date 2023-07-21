@@ -9,6 +9,6 @@ export interface Project {
   nature: string;
   startDate: Date;
   endDate: Date;
-  phases: Phase[]; 
+
 
 }
