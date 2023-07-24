@@ -1,7 +1,9 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormGroup, NgForm } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { Message, MessageService } from 'primeng/api';
+import { Phase } from 'src/app/_model/phase.model';
 import { Step} from 'src/app/_model/step.model';
 import { StepService } from 'src/app/_services/step.service';
 
@@ -12,25 +14,53 @@ import { StepService } from 'src/app/_services/step.service';
   providers: [MessageService]
 })
 export class AddStepComponent {
-  productDialog: boolean = false;
+  productDialog = false;
+  stepDialog = false;
   stepForm: FormGroup | undefined;
-
+  updateForm: FormGroup | undefined;
   value5: any;
-
-
-  step: Step = {
-    Stepname: '',
+  msgs: Message[] = [];
+  steps: Step[] = [];
+  phase: Phase = {
+    phaseId: 0,
+    phaseName: '',
     startDate: new Date(),
     endDate: new Date()
   };
+  step: Step = {
+    startDate: new Date(),
+    endDate: new Date(),
+    stepId: '',
+    stepName: ''
+  };
   successMessage: string = '';
-  msgs: Message[] = [];
-  constructor(private stepService: StepService) { }
 
 
-  ngOnInit(): void {
 
+  
+  constructor(private stepService: StepService, private route: ActivatedRoute) { 
+    this.loadSteps();
   }
+
+  
+  loadSteps() {
+      this.ngOnInit();
+      this.stepService.getAllSteps(this.phase).subscribe(
+        (steps: Step[]) => {
+          this.steps = steps;
+        },
+        (error) => {
+          console.error('Error loading steps:', error);
+        }
+      );
+    }
+
+    ngOnInit() {
+      this.route.queryParams.subscribe(params => {
+        this.phase = JSON.parse(params['phase']);
+      });
+     
+    }
 
   openNew() {
     this.productDialog = true;
@@ -38,13 +68,13 @@ export class AddStepComponent {
 
 
   addStep(stepForm: NgForm) {
-    this.stepService.addStep(this.step).subscribe(
-      (response: Step) => {
+    this.ngOnInit();
+    this.stepService.addStep(this.step, this.phase).subscribe(
+      (response:Step) => {
         console.log(response);
-        this.successMessage = 'task added successfully!';
+        this.successMessage = 'Phase added successfully!';
         stepForm.reset();
-
-
+        window.location.reload();
       },
       (error: HttpErrorResponse) => {
         console.log(error)
@@ -52,8 +82,40 @@ export class AddStepComponent {
     );
   }
 
+  onDeleteStep(step: Step) {
+    this.ngOnInit();
+    this.stepService.deleteStep(step).subscribe(
+      () => {
+        console.log('Step deleted successfully.');
+        window.location.reload();
+      },
+      (error: HttpErrorResponse) => {
+        console.error('An error occurred while deleting the step:', error);
+      }
+    );
+  }
+  
+  onUpdateStep(updateForm: NgForm) {
+    this.ngOnInit();
+    this.stepService.updateStep(this.step).subscribe(
+      (updatedStep) => {
+        console.log('Step updated successfully:', updatedStep);
+        updateForm.reset();
+        this.hideDialog();
+        window.location.reload();
+ 
+      },
+      (error) => {
+        console.error('An error occurred while updating the step:', error);
+      }
+    );
+  }
 
 
+  openStep(step: Step) {
+    this.step = { ...step }; 
+    this.stepDialog = true;
+  }
 
 
   hideDialog() {
@@ -63,7 +125,9 @@ export class AddStepComponent {
 
 showSuccessViaMessages() {
   this.msgs = [];
-  this.msgs.push({ severity: 'success', summary: 'Success Message', detail: 'Task added successfully!' });
+  this.msgs.push({ severity: 'success', summary: 'Success Message', detail: 'Step added successfully!' });
 }
+
 }
+
 

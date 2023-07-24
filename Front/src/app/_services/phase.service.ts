@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Phase } from '../_model/phase.model';
 import { Observable } from 'rxjs';
@@ -13,6 +13,11 @@ export class PhaseService {
 
   constructor(private httpclient: HttpClient) { }
 
+  getPhase(phase: Phase): Observable<any> {
+    const url = `${this.apiUrl}/phase/${phase.phaseId}`;
+    const options: { headers?: HttpHeaders; params?: HttpParams } = { };
+    return this.httpclient.get(url, options);
+  }
 
   public addPhase(phase: Phase , project: Project){
     const url = `${this.apiUrl}/${project.projectId}/addNewPhase`;

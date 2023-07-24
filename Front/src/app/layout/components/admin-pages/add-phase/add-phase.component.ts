@@ -1,7 +1,7 @@
 import { HttpErrorResponse, HttpHeaderResponse, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormGroup, NgForm } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Message, MessageService } from 'primeng/api';
 import {  Phase } from 'src/app/_model/phase.model';
 import { Project } from 'src/app/_model/project.model';
@@ -47,7 +47,7 @@ export class AddPhaseComponent {
 
 
   
-  constructor(private phaseService: PhaseService, private route: ActivatedRoute) { 
+  constructor(private phaseService: PhaseService, private router: Router, private route: ActivatedRoute) { 
     this.loadPhases();
   }
 
@@ -137,6 +137,19 @@ export class AddPhaseComponent {
 showSuccessViaMessages() {
   this.msgs = [];
   this.msgs.push({ severity: 'success', summary: 'Success Message', detail: 'Phase added successfully!' });
+}
+
+GetPhase(phase: Phase) {
+  this.phaseService.getPhase(phase).subscribe(
+    (phase: Phase) => {
+      this.phase = phase;
+      this.router.navigate(['/admin/pages/addStep'],{queryParams: { phase: JSON.stringify(this.phase) }})
+    },
+    (error: any) => {
+      console.error('Error loading phase:', error);
+      
+    }
+  );
 }
 
 }
