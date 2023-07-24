@@ -19,7 +19,7 @@ public class Step {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long stepId;
 
-    private String Stepname;
+    private String stepName;
 
     private Date startDate;
 
@@ -42,13 +42,7 @@ public class Step {
 		this.stepId = stepId;
 	}
 
-	public String getStepname() {
-		return Stepname;
-	}
 
-	public void setStepname(String stepname) {
-		Stepname = stepname;
-	}
 
 	public Date getStartDate() {
 		return startDate;
@@ -80,6 +74,14 @@ public class Step {
 
 	public void setTasks(List<Task> tasks) {
 		this.tasks = tasks;
+	}
+
+	public String getStepName() {
+		return stepName;
+	}
+
+	public void setStepName(String stepName) {
+		this.stepName = stepName;
 	}
 
     

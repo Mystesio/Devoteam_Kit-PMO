@@ -19,9 +19,9 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long taskId;
 
-    private String Taskname;
+    private String taskName;
 
-    private String Taskdescription;
+    private String taskDescription;
 
     private Date dueDate;
 
@@ -40,20 +40,20 @@ public class Task {
 		this.taskId = taskId;
 	}
 
-	public String getTaskname() {
-		return Taskname;
+	public String getTaskName() {
+		return taskName;
 	}
 
-	public void setTaskname(String taskname) {
-		Taskname = taskname;
+	public void setTaskName(String taskName) {
+		this.taskName = taskName;
 	}
 
-	public String getTaskdescription() {
-		return Taskdescription;
+	public String getTaskDescription() {
+		return taskDescription;
 	}
 
-	public void setTaskdescription(String taskdescription) {
-		Taskdescription = taskdescription;
+	public void setTaskDescription(String taskDescription) {
+		this.taskDescription = taskDescription;
 	}
 
 	public Date getDueDate() {
@@ -79,5 +79,7 @@ public class Task {
 	public void setStep(Step step) {
 		this.step = step;
 	}
+
+
 
 }

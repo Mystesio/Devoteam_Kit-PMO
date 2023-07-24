@@ -28,10 +28,10 @@ export class AddStepComponent {
     endDate: new Date()
   };
   step: Step = {
+    stepId: '',
+    stepName: '',
     startDate: new Date(),
     endDate: new Date(),
-    stepId: '',
-    stepName: ''
   };
   successMessage: string = '';
 
