@@ -113,7 +113,7 @@ public class StepControllerTest {
         long stepId = 1L;
         Step updatedStep = new Step();
         updatedStep.setStepId(stepId);
-        updatedStep.setStepname("Step Update");
+        updatedStep.setStepName("Step Update");
 
         // Set up the mock stepService
         Mockito.doNothing().when(stepService).updateStep(any(Step.class), eq(stepId));
@@ -130,7 +130,7 @@ public class StepControllerTest {
 
         // Compare the properties of the captured Step with the expected properties
         Step capturedStep = stepCaptor.getValue();
-        assertEquals(updatedStep.getStepname(), capturedStep.getStepname());
+        assertEquals(updatedStep.getStepName(), capturedStep.getStepName());
     }
 }
 

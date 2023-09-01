@@ -1,4 +1,17 @@
+<p-toolbar styleClass="mb-4">
+  <ng-template pTemplate="left">
+      <div class="my-2">
+          <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2"
+              (click)="openNew()"></button>
+      </div>
+  </ng-template>
+  <!-- <ng-template pTemplate="right">
+      <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help"></button>
+  </ng-template> -->
+</p-toolbar>
+
 <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+  <p-dialog [(visible)]="productDialog" [style]="{width: '450px'}" header="Project details" [modal]="true" class="p-fluid">
   <div>
     <label for="userFirstName">First Name:</label>
     <input type="text" id="userFirstName" formControlName="userFirstName">
@@ -22,6 +35,7 @@
     </select>
   </div>
   <button type="submit" [disabled]="userForm.invalid">Create User</button>
+  </p-dialog>
 </form>
 
 
@@ -40,8 +54,8 @@
                 <td>{{ user.userName }}</td>
                 <td>{{ user.userFirstName }}</td>
                 <td>{{ user.userLastName }}</td>
-                <td >{{ user.roleName }}</td>
-                <td><button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger" (click)="onDeleteUser(user)">DELETE</button> </td>
+                <td ><span *ngFor="let role of user.role">{{ role.roleName }}</span></td>
+                <td><button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger" (click)="onDeleteUser(user)"></button></td>
             </tr>
         </ng-template>
     </p-table>

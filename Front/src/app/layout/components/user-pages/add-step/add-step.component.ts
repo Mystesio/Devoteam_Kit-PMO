@@ -1,7 +1,7 @@
-import { HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse ,HttpHeaderResponse, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormGroup, NgForm } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Message, MessageService } from 'primeng/api';
 import { Phase } from 'src/app/_model/phase.model';
 import { Step} from 'src/app/_model/step.model';
@@ -28,17 +28,17 @@ export class AddStepComponent {
     endDate: new Date()
   };
   step: Step = {
+    stepId: '',
+    stepName: '',
     startDate: new Date(),
     endDate: new Date(),
-    stepId: '',
-    stepName: ''
   };
   successMessage: string = '';
 
 
 
   
-  constructor(private stepService: StepService, private route: ActivatedRoute) { 
+  constructor(private stepService: StepService, private router: Router, private route: ActivatedRoute) { 
     this.loadSteps();
   }
 
@@ -72,7 +72,7 @@ export class AddStepComponent {
     this.stepService.addStep(this.step, this.phase).subscribe(
       (response:Step) => {
         console.log(response);
-        this.successMessage = 'Phase added successfully!';
+        this.successMessage = 'step added successfully!';
         stepForm.reset();
         window.location.reload();
       },
@@ -128,6 +128,17 @@ showSuccessViaMessages() {
   this.msgs.push({ severity: 'success', summary: 'Success Message', detail: 'Step added successfully!' });
 }
 
+GetStep(step: Step) {
+  this.stepService.getStep(step).subscribe(
+    (step: Step) => {
+      this.step = step;
+      this.router.navigate(['/admin/pages/addTask'],{queryParams: { step: JSON.stringify(this.step) }})
+    },
+    (error: any) => {
+      console.error('Error loading step:', error);
+      
+    }
+  );
 }
-
+}
 

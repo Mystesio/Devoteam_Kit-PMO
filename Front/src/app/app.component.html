@@ -1,1 +1,15 @@
+
+<div *ngIf="projects.length > 0">
+    <div class="card" *ngFor="let project of projects">
+      <div class="card-header">
+        {{ project.projectName }} <!-- Affichez le nom du projet -->
+      </div>
+      <div class="card-body">
+        <p>{{ project.projectDescription }}</p> <!-- Affichez la description du projet ou d'autres détails -->
+      </div>
+    </div>
+  </div>
+  <div *ngIf="projects.length === 0">
+    <p>Aucun projet disponible.</p> <!-- Affichez un message si la liste des projets est vide -->
+  </div>
 <router-outlet></router-outlet>

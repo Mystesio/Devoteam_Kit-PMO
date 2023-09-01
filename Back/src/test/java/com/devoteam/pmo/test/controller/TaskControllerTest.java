@@ -115,7 +115,7 @@ public class TaskControllerTest {
         long taskId = 1L;
         Task updatedTask = new Task();
         updatedTask.setTaskId(taskId);
-        updatedTask.setTaskname("Task Update");
+        updatedTask.setTaskName("Task Update");
 
         // Set up the mock taskService
         Mockito.doNothing().when(taskService).update(any(Task.class), eq(taskId));
@@ -132,7 +132,7 @@ public class TaskControllerTest {
 
         // Compare the properties of the captured Task with the expected properties
         Task capturedTask = taskCaptor.getValue();
-        assertEquals(updatedTask.getTaskname(), capturedTask.getTaskname());
+        assertEquals(updatedTask.getTaskName(), capturedTask.getTaskName());
     }
 }
 

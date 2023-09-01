@@ -123,7 +123,7 @@
                 </td>
                 <td style="width:14%; min-width:10rem;">
                     <span class="p-column-title">Name</span>
-                    {{step.stepName }}
+                    {{step.stepName}}
                 </td>
                 <td style="width:14%; min-width:10rem;">
                     <span class="p-column-title">startDate</span>
@@ -134,7 +134,8 @@
                     {{step.endDate|date: 'yyyy-MM-dd'}}
                 </td>
                 <td><button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger" (click)="onDeleteStep(step)"></button></td>  
-                <td><button pButton pRipple label="Update" icon="pi pi-pencil" class="p-button" (click)="openStep(step)"></button></td>  
+                <td><button pButton pRipple label="Update" icon="pi pi-pencil" class="p-button" (click)="openStep(step)"></button></td> 
+                <td><button pButton pRipple label="Ajouter des tâches" class="p-button" (click)="GetStep(step)"></button></td> 
             </tr>
         </ng-template>
     </p-table>

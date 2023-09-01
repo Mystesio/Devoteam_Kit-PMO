@@ -99,13 +99,19 @@ public class UserService {
 
 
     public User deleteUser(String userName) {
-        User userToDelete = getUserByUserName(userName);
-        if (userToDelete != null) {
-            userList.remove(userToDelete);
-            return userToDelete; // Return the deleted user object
-        } else {
-            return null; // User with userName not found
-        }
+    	 User userToDelete = userDao.findByUserName(userName);
+         if (userToDelete != null) {
+             // Supprimer les relations user-role
+             userToDelete.setRole(null); // Dissocier les rôles de l'utilisateur
+             userDao.save(userToDelete); // Enregistrer les changements dans la base de données
+
+             // Supprimer l'utilisateur
+             userDao.delete(userToDelete);
+             
+             return userToDelete; // Return the deleted user object
+         } else {
+             return null; // User with userName not found
+         }
     }
 
     public User getUserByUserName(String userName) {

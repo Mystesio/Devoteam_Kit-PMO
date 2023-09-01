@@ -5,7 +5,6 @@ import { ActivatedRoute } from '@angular/router';
 import { Message, MessageService } from 'primeng/api';
 import { Step } from 'src/app/_model/step.model';
 import { Task} from 'src/app/_model/task.model';
-import { StepService } from 'src/app/_services/step.service';
 import { TaskService } from 'src/app/_services/task.service';
 
 @Component({
@@ -58,9 +57,7 @@ export class AddTaskComponent {
     }
 
     ngOnInit() {
-      this.route.queryParams.subscribe(params => {
-        this.step = JSON.parse(params['step']);
-      });
+      this.route.queryParams.subscribe(params => {this.step = JSON.parse(params['step']);});
      
     }
 
@@ -131,3 +128,4 @@ showSuccessViaMessages() {
 }
 
 }
+
