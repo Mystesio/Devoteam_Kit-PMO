@@ -13,23 +13,20 @@ export class PhaseService {
 
   constructor(private httpclient: HttpClient) { }
 
+  getPhase(phase: Phase): Observable<any> {
+    const url = `${this.apiUrl}/phase/${phase.phaseId}`;
+    const options: { headers?: HttpHeaders; params?: HttpParams } = { };
+    return this.httpclient.get(url, options);
+  }
 
-  public addPhase(phase: Phase, project : Project){
+  public addPhase(phase: Phase , project: Project){
     const url = `${this.apiUrl}/${project.projectId}/addNewPhase`;
     return this.httpclient.post<Phase>(url, phase);
   }
 
   public getAllPhases(project: Project): Observable<Phase[]>{
     return this.httpclient.get<Phase[]>(`${this.apiUrl}/${project.projectId}/phases`);
-
   }
-
-  getPhase(phase: Phase): Observable<any> {
-    const url = `${this.apiUrl}/phase/${phase.phaseId}`;
-    const options: { headers?: HttpHeaders; params?: HttpParams }={ };
-    return this.httpclient.get(url, options);
-  }
-  
 
   deletePhase(phase: Phase): Observable<any> {
     const url = `${this.apiUrl}/phase/${phase.phaseId}/delete`;

@@ -151,6 +151,7 @@
         </ng-template>
         <ng-template pTemplate="body"  let-project>
             <tr>
+                <td> </td>
                 <td style="width:14%; min-width:10rem;">
                     {{project.projectName}}
                 </td>
@@ -171,7 +172,7 @@
                 </td>
               <td><button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger" (click)="onDeleteProject(project)"></button></td>  
               <td><button pButton pRipple label="Update" icon="pi pi-pencil" class="p-button" (click)="openProject(project)"></button></td>              
-              <td><button pButton pRipple label="Ajouter Phases" class="p-button" (click)="GetProject(project)"></button></td>
+              <td><button pButton pRipple label="Ajouter des phases" class="p-button" (click)="GetProject(project)"></button></td>
 
             </tr>
         </ng-template>

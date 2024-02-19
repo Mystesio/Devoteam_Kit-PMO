@@ -1,9 +1,9 @@
-import { Step } from "./step.model";
+
 
 export interface Task {
-
-    Taskname:string;
-    TaskDescription:string;
+    taskId: string;
+    taskName:string;
+    taskDescription:string;
     dueDate:Date;
     completed:boolean;
 

@@ -13,10 +13,8 @@ import { DropdownModule } from 'primeng/dropdown';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { DialogModule } from 'primeng/dialog';
-
-
-import { AddProjectRoutingModule } from './add-project-routing.module';
 import { AddProjectComponent } from './add-project.component';
+import { AddProjectRoutingModule } from './add-project-routing.module';
 import { FormsModule } from '@angular/forms';
 import { CalendarModule } from 'primeng/calendar';
 import { MessagesModule } from 'primeng/messages';
@@ -26,7 +24,8 @@ import { MessageModule } from 'primeng/message';
 
 @NgModule({
   declarations: [
-    AddProjectComponent
+    AddProjectComponent,
+
   ],
   imports: [
     CommonModule,

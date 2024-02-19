@@ -1,10 +1,21 @@
 <p-toolbar styleClass="mb-4">
     <ng-template pTemplate="left">
+
         <div class="my-2">
             <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2"
                 (click)="openNew()"></button>
-            <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger"></button>
         </div>
+
+        <div class="card" style="width: 18rem;">
+            <div class="card-header">
+              {{project.projectName}}
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">Domaine : {{project.domain}}</li>
+              <li class="list-group-item">Nature : {{project.nature}}</li>
+              <li class="list-group-item">Sponsor : {{project.sponsor}} </li>
+            </ul>
+          </div>
     </ng-template>
     <!-- 
     <ng-template pTemplate="right">
@@ -13,29 +24,29 @@
 </p-toolbar>
 
 <form #PhaseForm="ngForm">
-    <p-dialog [(visible)]="productDialog" [style]="{width: '450px'}" header="Phase Form" [modal]="true"
+    <p-dialog [(visible)]="productDialog" [style]="{width: '450px'}" header="Phases details" [modal]="true"
         class="p-fluid">
         <ng-template pTemplate="content">
-            <!-- <img [src]="'assets/demo/images/product/' + product.image" [alt]="product.image" width="150" class="mt-0 mx-auto mb-5 block shadow-2" *ngIf="product.image"> -->
             <div class="field">
-                <label for="name">Phase name :</label>
-                <input type="text" pInputText id="name" [(ngModel)]="phase.phaseName" name="phaseName"
-                    name="phaseName" />
-                <small class="ng-dirty ng-invalid">Name is required.</small>
+                <label for="phaseName">Phase name :</label>
+                <input type="text" pInputText id="phaseName" [(ngModel)]="phase.phaseName" name="phaseName" />
+                <small class="ng-dirty ng-invalid">Nom requis</small>
             </div>
             <div class="field col-12 md:col-4">
                 <span class="p-float-label">
                     <p-calendar inputId="dated" [(ngModel)]="phase.startDate" name="startDate"></p-calendar>
-                    <label for="calendar">Date debut:</label>
+                    <label for="calendar">Date de début: </label>
                 </span>
             </div>
             <div class="field col-12 md:col-4">
                 <span class="p-float-label">
                     <p-calendar inputId="datef" [(ngModel)]="phase.endDate" name="endDate"></p-calendar>
-                    <label for="calendar">Date fin:</label>
+                    <label for="calendar">Date de fin:</label>
                 </span>
-            </div>
+            </div> 
+            
 
+          
         </ng-template>
 
         <ng-template pTemplate="footer">
@@ -49,12 +60,50 @@
         </div>
     </p-dialog>
 
+</form>
+
+<form #UpdateForm="ngForm">
+    <p-dialog [(visible)]="phaseDialog" [style]="{width: '450px'}" header="Phases details" [modal]="true"
+        class="p-fluid">
+        <ng-template pTemplate="content">
+            <div class="field">
+                <label for="PhaseName">Phase name :</label>
+                <input type="text" pInputText id="phaseName" [(ngModel)]="phase.phaseName" name="phaseName" />
+                <small class="ng-dirty ng-invalid">Nom requis</small>
+            </div>
+            <div class="field col-12 md:col-4">
+                <span class="p-float-label">
+                    <p-calendar inputId="dated" [(ngModel)]="phase.startDate" name="startDate"></p-calendar>
+                    <label for="calendar">Date de début: </label>
+                </span>
+            </div>
+            <div class="field col-12 md:col-4">
+                <span class="p-float-label">
+                    <p-calendar inputId="datef" [(ngModel)]="phase.endDate" name="endDate"></p-calendar>
+                    <label for="calendar">Date de fin:</label>
+                </span>
+            </div>
+          
+        </ng-template>
+
+        <ng-template pTemplate="footer">
+            <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text"
+                (click)="hideDialog()"></button>
+            <button pButton pRipple label="Update" icon="pi pi-check" class="p-button-text"
+                (click)="onUpdatePhase(PhaseForm)" (click)="showSuccessViaMessages()"></button>
+        </ng-template>
+        <div class="flex flex-wrap gap-2">
+            <p-messages [value]="msgs" *ngIf="successMessage"></p-messages>
+        </div>
+    </p-dialog>
+
+</form>
 
 
-    <p-table   responsiveLayout="scroll" [rows]="10" [globalFilterFields]="['name','country.name','representative.name','status']" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"  selectionMode="multiple" [rowHover]="true" dataKey="id">
+    <p-table   [value]="phases" responsiveLayout="scroll" [rows]="10" [globalFilterFields]="['name','country.name','representative.name','status']" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"  selectionMode="multiple" [rowHover]="true" dataKey="id">
         <ng-template pTemplate="caption">
             <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
-                <h5 class="m-0">Manage Projects</h5>
+                <h5 class="m-0">Manage Phase</h5>
                 <span class="block mt-2 md:mt-0 p-input-icon-left">
                     <i class="pi pi-search"></i>
                     <!-- <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Search..."  class="w-full sm:w-auto"/> -->
@@ -66,26 +115,33 @@
                 <th style="width: 3rem">
                     <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                 </th>
-                <th pSortableColumn="code">ID <p-sortIcon field="code"></p-sortIcon></th>
                 <th pSortableColumn="name">Phase Name <p-sortIcon field="name"></p-sortIcon></th>
-                <th>Image</th>
-                <th pSortableColumn="inventoryStatus">Status <p-sortIcon field="inventoryStatus"></p-sortIcon></th>
-                <th></th>
+                <th pSortableColumn="name">startDate <p-sortIcon field="name"></p-sortIcon></th>
+                <th pSortableColumn="name">endDate <p-sortIcon field="name"></p-sortIcon></th>
+     
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-project>
-            <tr>
+        <ng-template pTemplate="body" let-phase>
+            <tr> 
                 <td>
-                    <p-tableCheckbox [value]="project"></p-tableCheckbox>
-                </td>
-                <td style="width:14%; min-width:10rem;"><span class="p-column-title">Code</span>
-                    {{project.code || project.id}}
+                    <p-tableCheckbox [value]="phase"></p-tableCheckbox>
                 </td>
                 <td style="width:14%; min-width:10rem;">
                     <span class="p-column-title">Name</span>
-                    {{project.projectName}}
+                    {{phase.phaseName }}
                 </td>
-           
+                <td style="width:14%; min-width:10rem;">
+                    <span class="p-column-title">startDate</span>
+                    {{phase.startDate|date: 'yyyy-MM-dd'}}
+                </td>
+                <td style="width:14%; min-width:10rem;">
+                    <span class="p-column-title">endDate</span>
+                    {{phase.endDate|date: 'yyyy-MM-dd'}}
+                </td>
+                <td><button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger" (click)="onDeletePhase(phase)"></button></td>  
+                <td><button pButton pRipple label="Update" icon="pi pi-pencil" class="p-button" (click)="openPhase(phase)"></button></td>  
+                <td><button pButton pRipple label="Ajouter des étapes" class="p-button" (click)="GetPhase(phase)"></button></td>
+
             </tr>
         </ng-template>
     </p-table>
@@ -93,4 +149,3 @@
    
       
     
-</form>

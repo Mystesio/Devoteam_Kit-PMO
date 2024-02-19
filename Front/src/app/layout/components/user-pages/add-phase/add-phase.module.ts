@@ -13,8 +13,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { DialogModule } from 'primeng/dialog';
-
-
+import { AddProjectComponent } from '../add-project/add-project.component';
 import { AddPhaseRoutingModule } from './add-phase-routing.module';
 import { AddPhaseComponent } from './add-phase.component';
 import { FormsModule } from '@angular/forms';
@@ -26,7 +25,8 @@ import { MessageModule } from 'primeng/message';
 
 @NgModule({
   declarations: [
-    AddPhaseComponent
+    AddPhaseComponent,
+   
   ],
   imports: [
     CommonModule,

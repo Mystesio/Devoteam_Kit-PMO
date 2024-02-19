@@ -62,7 +62,7 @@ export class UserService {
   }
 
   deleteUser(user: User): Observable<any> {
-    const url = `${this.PATH_OF_API}/user/${user.userName}/delete`;
+    const url = `${this.PATH_OF_API}/deleteUser/${user.userName}`;
     const options = { body: user };
     return this.httpclient.delete(url, options);
   }

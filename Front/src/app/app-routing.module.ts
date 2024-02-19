@@ -10,7 +10,7 @@ const routes: Routes = [
     component: LoginComponent,
     children: [
       { path: "", redirectTo: "/auth/login", pathMatch: "full" },
-      { path: 'auth', loadChildren: () => import('./layout/components/auth-layout/auth-layout.module').then(m => m.AuthLayoutModule) }
+      { path: 'auth', loadChildren: () => import('./layout/components/auth-layout/auth-layout.module').then(m => m.AuthLayoutModule) },
     ]
   },
   
