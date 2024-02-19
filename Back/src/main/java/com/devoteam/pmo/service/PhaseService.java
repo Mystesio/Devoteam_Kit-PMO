@@ -1,12 +1,14 @@
 package com.devoteam.pmo.service;
 
 import java.util.List;
-
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 import com.devoteam.pmo.entity.Phase;
 import com.devoteam.pmo.entity.Project;
 import com.devoteam.pmo.repository.PhaseRepository;
+import com.devoteam.pmo.repository.ProjectRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 @Service
@@ -17,43 +19,49 @@ public class PhaseService {
 private PhaseRepository phaseRepository;
 
 @Autowired
-private ProjectService projectService;
+private ProjectRepository projectRepository;
 
-public List<Phase> showPhase() {
-        return phaseRepository.findAll();
+
+
+
+
+public List<Phase> showPhases(long projectId) throws Exception {
+	
+	 return phaseRepository.findByProjectProjectId(projectId);
+      
     }
-    public Phase addNewPhase(Phase phase) {
-        Project project = phase.getProject();
-    
-        if (project != null) {
-            // Save the project if it's not already saved
-            if (project.getProjectId() ==  phase.getProject().getProjectId()) {
-                projectService.addNewProject(project);
-            }
-        } else {
-            // Handle the case where phase.getProject() returns null
-            // You can either throw an exception or handle it in an appropriate way based on your requirements
-        }
-    
-        return phaseRepository.save(phase);
+public Phase showPhase (long phaseId) throws Exception {
+    Optional<Phase> optionalPhase = phaseRepository.findById(phaseId);
+
+    if (optionalPhase.isPresent()) {
+        return optionalPhase.get();
+    } else {
+        throw new Exception("Phase not found for ID: " + phaseId);
     }
-    
-    public void deletePhase(Phase phase) {
+}
+
+
+
+public Phase addNewPhase(long projectId, Phase newPhase) {
+	
+
+    Project project = projectRepository.findById(projectId).orElse(null);
+    if (project != null) {
+        newPhase.setProject(project);
+        return phaseRepository.save(newPhase);
+    } else {
+        throw new IllegalArgumentException("Project with ID " + projectId + " not found.");
+    }
+}
+
+
+    public void deletePhase(long phaseId) {
+    	Phase phase = phaseRepository.findById(phaseId).orElse(null);
         phaseRepository.delete(phase);
     }
 
     public void update(Phase phase, long id) {
-        // Ensure that the phase object has the correct ID before saving
-        phase.setPhaseId(id);
-
-        // Set the project for the phase
-        Project project = phase.getProject();
-        phase.setProject(project);
-
-        // Set the phase for each step (assuming steps exist)
-        phase.getSteps().forEach(step -> step.setPhase(phase));
-
-        phaseRepository.save(phase);
+          phaseRepository.save(phase);
     }
     
 }

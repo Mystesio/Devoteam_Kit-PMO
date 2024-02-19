@@ -23,7 +23,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 
-
+@SuppressWarnings("warnings")
 
 @Service
 public class JwtService implements UserDetailsService {
